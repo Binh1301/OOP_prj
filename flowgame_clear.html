@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flowgame tổng hợp</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #16181d;
+      --card: #1f232b;
+      --text: #e6e6e6;
+      --muted: #a7acb5;
+      --border: #2e3440;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    main {
+      max-width: 1480px;
+      margin: 24px auto;
+      padding: 0 16px 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+
+    p {
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+
+    .mermaid {
+      overflow: auto;
+    }
+  </style>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: "basis" }
+    });
+  </script>
+</head>
+<body>
+  <main>
+    <div class="card">
+      <h1>Flowgame tổng hợp (viết lại từ 5 sơ đồ)</h1>
+      <p>
+        Flowgame 3 giai đoạn chưa có thêm minigame xD.
+      </p>
+
+      <div class="mermaid">
+flowchart TD
+  A["Opening<br/>Day 1: Gặp chủ lần đầu"] --> B{"Về nhà cùng chủ?"}
+  B -->|"Trốn"| S0["Route Street<br/>An toàn thấp - tự do cao"]
+  B -->|"Đi theo"| H0["Route Home<br/>An toàn cao - tự do thấp"]
+
+  subgraph STREET["Street Route (Day 1-5)"]
+    direction TB
+    S0 --> S1["Day 1: Khám phá lãnh thổ"]
+    S1 --> S1a["Thùng rác<br/>Bắt chuột / ẩn nấp"]
+    S1 --> S1b["Cống<br/>MG: Mê cung thoát cống<br/>Bắt chuột(+ATK) / Bỏ(+NL)"]
+    S1 --> S1c["Cây<br/>Săn chim tỉ lệ 70%"]
+
+    S1a --> S2["Day 2: Gặp gang mèo"]
+    S1b --> S2
+    S1c --> S2
+
+    S2 --> S2a["Đánh (30%)"]
+    S2 --> S2b["Gia nhập gang"]
+    S2 --> S2c["Chạy trốn (100%)"]
+    S2a --> S3["Day 3: Tự rèn luyện<br/>Unlock hiphop_dance"]
+    S2c --> S3
+    S2b --> SD["Nhánh quyền lực gang"]
+
+    S3 --> S4["Day 4: Gặp mèo cái<br/>Điều kiện: đồng dục 100% + hiphop"]
+    S4 --> S4m["Mái nhà (70%)"]
+    S4 --> S4r["Trên đường (100%)"]
+    S4 --> S4h["Xông vào nhà (50%)"]
+
+    S4m -->|"Thành công"| S4g["MG: Cắn gáy"]
+    S4m -->|"Thất bại"| SF1["Bị tát (-HP)"]
+    S4r -->|"Thành công"| S4g
+    S4h -->|"Thành công"| S4g
+    S4h -->|"Thất bại"| SF1
+    SF1 --> S5
+
+    S4g --> S5["Day 5: Gặp bọn trộm mèo"]
+    S5 --> S5a["MG: Trốn trộm mèo"]
+    S5a -->|"Thắng"| S6{"Cứu mèo khác?"}
+    S5a -->|"Thua / bị bắt"| S7["Bị nhốt vào lồng"]
+
+    S6 -->|"Có"| S6a["MG: Angry Bird phá chuồng<br/>saved_cats=true"]
+    S6 -->|"Không"| S6b["Tiếp tục sống"]
+
+    S7 --> S7a["MG: Thoát khỏi lồng"]
+    S7a -->|"Thắng"| S6b
+    S7a -->|"Thua"| EX["Ending X<br/>Quán thịt hổ"]
+
+    S6a --> EC_H["Ending C-Hero<br/>Con đường hoang có nghĩa"]
+    S6b --> EC["Ending C<br/>Con đường hoang"]
+    SD --> ED["Ending D<br/>Đại ca khu phố"]
+  end
+
+  subgraph HOME["Home Route (Day 1-5)"]
+    direction TB
+    H0 --> H1["Vào nhà, no bụng"]
+    H1 --> H2["Day 2: Khám phá nhà"]
+    H2 --> H2m["MG: Bay bay vũ trụ vì cỏ mèo"]
+    H2m -->|"Thắng"| H2w["Sung sướng, chủ vui (+HP +Karma)"]
+    H2m -->|"Thua"| H2l["Choáng, chủ lo (-HP -Karma)"]
+
+    H2w --> H3["Day 3: Tắm (khủng hoảng)"]
+    H2l --> H3
+    H3 --> H3m["MG: Đại chiến xà phòng"]
+    H3m -->|"Thắng"| H3w["Thoát khô, chủ phục (+HP +ATK +Karma)"]
+    H3m -->|"Thua"| H3l["Ướt sũng, chủ bực (-HP -ATK -Karma)"]
+
+    H3w --> H4["Day 4: Phòng khám (điểm rẽ chính)"]
+    H3l --> H4
+    H4 --> H4m["MG: Đào thoát khỏi dao kéo"]
+    H4m -->|"Thắng: thoát"| H5A["Day 5A: Ngoài đường, tự do"]
+    H4m -->|"Thua: bị thiến"| H5B["Day 5B: Trong nhà, đã thiến"]
+
+    H5A --> H5Am["MG: Săn chuột"]
+    H5Am --> EC
+
+    H5B --> H5Bm["MG: Nằm im"]
+    H5Bm --> H6{"Nằm im hay nhảy ra?"}
+    H6 -->|"Nằm im"| KPLUS["Karma+"]
+    H6 -->|"Nhảy ra"| KMINUS["Karma-"]
+    KPLUS --> H7{"Cảm xúc nội tâm?"}
+    KMINUS --> H7
+    H7 -->|"Chấp nhận"| EA["Ending A<br/>Chiếc lồng êm ái"]
+    H7 -->|"Không chấp nhận"| EB["Ending B<br/>Chiếc lồng vàng"]
+  end
+
+  subgraph DRAMA["Drama tình ái (Optional overlay khi has_wife=true)"]
+    direction TB
+    D0["Phase: Drama tình ái"] --> D1{"Lựa chọn hành động"}
+    D1 -->|"Ngoại tình"| D2["MG: Trốn vợ"]
+    D1 -->|"Theo dõi vợ"| D3["MG: Làm thám tử"]
+
+    D2 -->|"Thành công"| D2a["Tăng hưng phấn / rủi ro"]
+    D2 -->|"Bị bắt"| D2b["MG: Bị đánh ghen hội đồng"]
+    D2b -->|"Thua"| EL["Ending Love<br/>Mất vợ và HP"]
+    D2b -->|"Thắng"| D4["Phát hiện vợ cũng có bồ"]
+    D3 --> D4
+
+    D4 --> D5{"Cách xử lý tình địch"}
+    D5 -->|"Đánh trực diện"| D6["MG: Vũ điệu móng vuốt"]
+    D5 -->|"Dùng mưu"| D7["MG: Nấu ăn đầu độc"]
+    D6 -->|"Thành công"| D8["Giành lại vợ / Có vợ mới"]
+    D6 -->|"Thua"| EL
+    D7 -->|"Thành công"| D8
+    D7 -->|"Sai công thức 3 lần"| EL
+  end
+
+  S4g -. "has_wife=true" .-> D0
+  D8 -. "quay lại tuyến chính" .-> S6b
+
+  EAQ["Ending A quality theo Karma<br/>Karma cao: ấm áp / Karma thấp: cô đơn"]
+  EBQ["Ending B quality theo Karma<br/>Karma cao: mở cửa sổ / Karma thấp: cửa đóng"]
+  EA -.-> EAQ
+  EB -.-> EBQ
+
+  MSG["Thông điệp cuối<br/>An toàn và tự do hiếm khi đi cùng nhau.<br/>Sống sót quá lâu một mình có thể làm mất chính mình."]
+  EA --> MSG
+  EB --> MSG
+  EC --> MSG
+  EC_H --> MSG
+  ED --> MSG
+  EX --> MSG
+  EL --> MSG
+
+  classDef opening fill:#444441,stroke:#b4b2a9,color:#f5f5f5;
+  classDef street fill:#27500a,stroke:#97c459,color:#dcefc7;
+  classDef home fill:#0f5b6c,stroke:#79c7dd,color:#dff6ff;
+  classDef decision fill:#3c3489,stroke:#afa9ec,color:#f2efff;
+  classDef mini fill:#185fa5,stroke:#85b7eb,color:#e7f3ff;
+  classDef endingGood fill:#633806,stroke:#ef9f27,color:#ffdca5;
+  classDef endingBad fill:#791f1f,stroke:#f09595,color:#ffe4e4;
+  classDef note fill:#2e323b,stroke:#7a8191,color:#d6d9e0;
+  classDef drama fill:#8b3f7d,stroke:#e5a6d8,color:#fff1fb;
+
+  class A opening;
+  class S0,S1,S2,S3,S4,S5,S6b,SD street;
+  class H0,H1,H2,H3,H4,H5A,H5B home;
+  class B,S6,H6,H7,D1,D5 decision;
+  class S1b,S4g,S5a,S7a,H2m,H3m,H4m,H5Am,H5Bm,D2,D3,D2b,D6,D7 mini;
+  class EC,EC_H,ED,EA,EB endingGood;
+  class EX,EL endingBad;
+  class EAQ,EBQ,MSG note;
+  class D0,D2a,D4,D8 drama;
+      </div>
+    </div>
+  </main>
+</body>
+</html>
