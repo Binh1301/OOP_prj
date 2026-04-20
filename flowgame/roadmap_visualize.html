@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flowgame - Lộ trình MVP trực quan</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f1117;
+      --panel: #171b24;
+      --panel-2: #1d2330;
+      --border: #2a3345;
+      --text: #e8ecf3;
+      --muted: #a8b2c2;
+      --ok: #3fb950;
+      --warn: #d29922;
+      --bad: #f85149;
+      --accent: #58a6ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.45;
+    }
+
+    main {
+      max-width: 1280px;
+      margin: 24px auto;
+      padding: 0 16px 24px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 10px;
+      line-height: 1.25;
+    }
+
+    h1 { font-size: 25px; }
+    h2 { font-size: 19px; }
+    h3 { font-size: 16px; }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 8px;
+      margin-right: 8px;
+      margin-top: 6px;
+      color: var(--muted);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .phase-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .phase {
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .phase .meta {
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 8px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    li { margin: 4px 0; }
+    .good { color: var(--ok); }
+    .bad { color: var(--bad); }
+    .warn { color: var(--warn); }
+
+    .mermaid {
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px;
+      background: #121721;
+    }
+  </style>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: "basis" }
+    });
+  </script>
+</head>
+<body>
+  <main>
+    <section class="card">
+      <h1>Flowgame: Lộ trình MVP cho dev solo</h1>
+      <p>Prototype ưu tiên dữ liệu để ra bản chơi được nhanh: 1 tuyến, 1 minigame, 2 ending, sau đó mở rộng dần.</p>
+      <span class="pill">Công nghệ: Java + LibGDX</span>
+      <span class="pill">Mục tiêu: Vertical slice chơi được</span>
+      <span class="pill">Cách làm: Tránh over-engineering</span>
+    </section>
+
+    <section class="card">
+      <h2>Kế hoạch theo từng giai đoạn</h2>
+      <div class="phase-list">
+        <div class="phase">
+          <div class="meta">Giai đoạn 1 — Khóa phạm vi</div>
+          <h3>Mục tiêu</h3>
+          <p>Chốt một lát cắt nhỏ nhưng chơi được.</p>
+          <h3>Xây gì</h3>
+          <p>Chọn 1 route (khuyên: Home), 6-10 scene, 1 minigame, 2 ending.</p>
+          <h3>Vì sao quan trọng</h3>
+          <p>Tránh phình phạm vi và thay kiến trúc liên tục.</p>
+          <h3>Chưa làm lúc này</h3>
+          <p class="bad">Chưa ôm toàn bộ route và hệ drama.</p>
+        </div>
+
+        <div class="phase">
+          <div class="meta">Giai đoạn 2 — Thiết kế dữ liệu cốt truyện</div>
+          <h3>Mục tiêu</h3>
+          <p>Biến nội dung thành dạng data-driven.</p>
+          <h3>Xây gì</h3>
+          <p>Định dạng Scene ID, choice, condition, effect, next-scene bằng JSON/CSV.</p>
+          <h3>Vì sao quan trọng</h3>
+          <p>Tránh code rẽ nhánh kiểu if/else rối và khó bảo trì.</p>
+          <h3>Chưa làm lúc này</h3>
+          <p class="bad">Chưa làm editor/tool tự tạo nội dung.</p>
+        </div>
+
+        <div class="phase">
+          <div class="meta">Giai đoạn 3 — Vòng lặp cốt truyện lõi</div>
+          <h3>Mục tiêu</h3>
+          <p>Cho VN loop chạy end-to-end.</p>
+          <h3>Xây gì</h3>
+          <p>Tải scene -> hiện text -> hiện lựa chọn hợp lệ -> áp effect -> chuyển scene tiếp.</p>
+          <h3>Vì sao quan trọng</h3>
+          <p>Đây là vòng giá trị cốt lõi của game.</p>
+          <h3>Chưa làm lúc này</h3>
+          <p class="bad">Chưa tối ưu visual/audio.</p>
+        </div>
+
+        <div class="phase">
+          <div class="meta">Giai đoạn 4 — Hệ thống trạng thái</div>
+          <h3>Mục tiêu</h3>
+          <p>Biến lựa chọn thành hậu quả có ý nghĩa.</p>
+          <h3>Xây gì</h3>
+          <p>GameState gồm HP, Karma, cờ has_wife, saved_cats, currentSceneId.</p>
+          <h3>Vì sao quan trọng</h3>
+          <p>Bật được điều kiện rẽ nhánh, khóa/mở scene và ending.</p>
+          <h3>Chưa làm lúc này</h3>
+          <p class="bad">Chưa thêm quá nhiều chỉ số.</p>
+        </div>
+
+        <div class="phase">
+          <div class="meta">Giai đoạn 5 — Tích hợp 1 minigame</div>
+          <h3>Mục tiêu</h3>
+          <p>Xác thực flow story + gameplay hoạt động mượt.</p>
+          <h3>Xây gì</h3>
+          <p>1 MiniGameScreen đơn giản trả về kết quả thắng/thua cho Story.</p>
+          <h3>Vì sao quan trọng</h3>
+          <p>Chứng minh kiến trúc chuyển Screen của bạn đúng.</p>
+          <h3>Chưa làm lúc này</h3>
+          <p class="bad">Chưa làm nhiều minigame cùng lúc.</p>
+        </div>
+
+        <div class="phase">
+          <div class="meta">Giai đoạn 6 — Ending + luồng an toàn</div>
+          <h3>Mục tiêu</h3>
+          <p>Hoàn thành vòng chơi trọn vẹn và có thể chơi lại.</p>
+          <h3>Xây gì</h3>
+          <p>2 ending, restart, save/load cơ bản.</p>
+          <h3>Vì sao quan trọng</h3>
+          <p>Tạo prototype hoàn chỉnh để test và demo.</p>
+          <h3>Chưa làm lúc này</h3>
+          <p class="bad">Chưa cân bằng chỉ số/polish toàn diện.</p>
+        </div>
+
+        <div class="phase">
+          <div class="meta">Giai đoạn 7 — Đánh bóng prototype</div>
+          <h3>Mục tiêu</h3>
+          <p>Làm bản demo sạch và dễ hiểu.</p>
+          <h3>Xây gì</h3>
+          <p>UI dễ đọc, phản hồi chuyển cảnh, overlay debug trạng thái cơ bản.</p>
+          <h3>Vì sao quan trọng</h3>
+          <p>Tăng tốc vòng lặp sửa lỗi và tinh chỉnh.</p>
+          <h3>Chưa làm lúc này</h3>
+          <p class="bad">Chưa làm pipeline art đầy đủ.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card grid-2">
+      <div>
+        <h2>MVP: Làm trước</h2>
+        <ul class="good">
+          <li>Opening + chỉ 1 route hoàn chỉnh (Home hoặc Street)</li>
+          <li>Hệ scene truyện + lựa chọn rẽ nhánh</li>
+          <li>State tối thiểu: HP, Karma, has_wife, saved_cats</li>
+          <li>1 minigame đơn giản</li>
+          <li>2 ending dựa trên state/lựa chọn</li>
+          <li>Save/load + restart cơ bản</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Để sau</h2>
+        <ul class="warn">
+          <li>Hệ drama overlay</li>
+          <li>Các minigame còn lại</li>
+          <li>Toàn bộ hệ chỉ số và cân bằng sâu</li>
+          <li>VFX/audio/animation phức tạp</li>
+          <li>Tool/editor làm nội dung riêng</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Kiến trúc LibGDX khuyến nghị</h2>
+      <div class="mermaid">
+flowchart LR
+  Scene["Dữ liệu Scene<br/>id, text, choices[], minigameId?, onEnterEffects?"]
+  Choice["Dữ liệu Choice<br/>text, conditions[], effects[], nextSceneId"]
+  State["GameState runtime<br/>stats, flags, currentSceneId"]
+  Engine["StoryEngine<br/>đánh giá -> áp dụng -> điều hướng"]
+  Story["StoryScreen"]
+  Mini["MiniGameScreen"]
+  End["EndingScreen"]
+
+  Scene --> Engine
+  Choice --> Engine
+  State --> Engine
+  Engine --> Story
+  Story -->|"scene có minigame"| Mini
+  Mini -->|"kết quả + hiệu ứng"| Engine
+  Engine -->|"đạt điều kiện ending"| End
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Checklist rủi ro cho người mới</h2>
+      <ul>
+        <li class="bad">Hardcode rẽ nhánh trong Java thay vì đọc từ data</li>
+        <li class="bad">Làm tất cả route trước khi xong 1 route playable</li>
+        <li class="bad">Làm nhiều minigame trước khi chứng minh core loop</li>
+        <li class="bad">Over-engineering quá sớm (ECS/plugin/tooling)</li>
+        <li class="bad">Không có cách xem state/flags để debug</li>
+        <li class="bad">Đổi schema dữ liệu giữa chừng không kiểm soát</li>
+        <li class="bad">Để save/load quá muộn mới làm</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Các bước tiếp theo ngay (trước khi code)</h2>
+      <ol>
+        <li>Khóa phạm vi MVP.</li>
+        <li>Gán ID ổn định cho scene và choice.</li>
+        <li>Chốt một schema cho scene/choice/effect.</li>
+        <li>Đánh dấu rõ effect của từng choice và điều kiện ending.</li>
+        <li>Định nghĩa contract input/output cho minigame.</li>
+        <li>Đặt giá trị mặc định và biên cho chỉ số ban đầu.</li>
+        <li>Viết tiêu chí hoàn thành prototype thật rõ.</li>
+      </ol>
+    </section>
+  </main>
+</body>
+</html>

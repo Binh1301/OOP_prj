@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flowgame - Dữ liệu Scene có cấu trúc</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f1117;
+      --card: #171b24;
+      --text: #e8ecf3;
+      --muted: #a8b2c2;
+      --border: #2a3345;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.5;
+    }
+    main {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px 24px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+    p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="card">
+      <h1>Flowgame - Dữ liệu Scene có cấu trúc</h1>
+      <p>Dữ liệu scene dạng cấu trúc để dùng cho narrative engine.</p>
+      <pre>Scene ID: A
+  text: Ngày 1 bắt đầu khi bạn gặp chủ lần đầu tiên. Trước mặt bạn mở ra một hướng đi quyết định cả cuộc đời.
+  choices:
+    - "Tiếp tục" → B
+
+Scene ID: B
+  text: Chủ cho bạn sự an toàn, nhưng tự do ngoài đường vẫn vẫy gọi. Bạn phải chọn con đường ngay lúc này.
+  choices:
+    - "Trốn đi" → S0
+    - "Đi theo chủ" → H0
+
+Scene ID: S0
+  text: Bạn chọn tuyến đường phố, nơi nguy hiểm luôn rình rập nhưng tự do thuộc về bạn. Cuộc chiến sinh tồn bắt đầu ngay lập tức.
+  choices:
+    - "Tiếp tục" → S1
+
+Scene ID: S1
+  text: Bạn thăm dò lãnh thổ để tìm thức ăn và chỗ ẩn nấp. Mỗi lựa chọn đều định hình cách bạn trưởng thành.
+  choices:
+    - "Lục khu thùng rác" → S1a
+    - "Vào tuyến cống" → S1b
+    - "Leo tuyến trên cây" → S1c
+
+Scene ID: S1a
+  text: Bạn kiếm ăn trong đống rác, cân bằng giữa đói khát và rủi ro. Ngày mới đẩy bạn đến những va chạm khắc nghiệt hơn.
+  choices:
+    - "Sang ngày 2" → S2
+
+Scene ID: S1b
+  text: Bạn chui qua cống và vật lộn để thoát khỏi mê cung ngột ngạt. Đường phố trở nên khắc nghiệt nhanh chóng.
+  choices:
+    - "Sang ngày 2" → S2
+
+Scene ID: S1c
+  text: Bạn săn mồi từ trên cao và học cách ra đòn chớp nhoáng. Sự tự tin tăng lên khi áp lực lãnh thổ ngày càng lớn.
+  choices:
+    - "Sang ngày 2" → S2
+
+Scene ID: S2
+  text: Một băng mèo chặn đường và ép bạn phải phản ứng. Lựa chọn này quyết định quyền lực, trung thành hay chỉ là sống sót.
+  choices:
+    - "Đánh nhau (30%)" → S2a
+    - "Gia nhập băng" → S2b
+    - "Chạy trốn (100%)" → S2c
+
+Scene ID: S2a
+  text: Bạn chiến đấu và sống sót sau cuộc đụng độ, đầy thương tích nhưng sắc bén hơn. Ngày tiếp theo là lúc phục hồi sức mạnh.
+  choices:
+    - "Tiếp tục" → S3
+
+Scene ID: S2b
+  text: Bạn chấp nhận đời sống băng nhóm và bước vào hệ thống thứ bậc đường phố. Sự kiểm soát thay thế cho độc lập.
+  choices:
+    - "Tiếp tục" → SD
+
+Scene ID: S2c
+  text: Bạn rút lui để giữ tự do, nhưng đường phố vẫn không khoan nhượng. Bạn chuyển sang tự rèn luyện bản thân.
+  choices:
+    - "Tiếp tục" → S3
+
+Scene ID: S3
+  text: Bạn rèn luyện một mình và mở khóa sự tự tin mới. Một cuộc gặp gỡ tình cảm trở nên khả thi.
+  choices:
+    - "Tiếp tục" → S4
+
+Scene ID: S4
+  text: Bạn gặp một mèo cái, nhưng thành công phụ thuộc vào chuẩn bị và thời điểm. Đây là khoảnh khắc xã hội đầy rủi ro.
+  choices:
+    - "Tiếp cận trên mái nhà (70%)" → S4m
+    - "Tiếp cận ngoài đường (100%)" → S4r
+    - "Xông vào nhà (50%)" → S4h
+
+Scene ID: S4m
+  text: Trên mái nhà, căng thẳng dâng cao khi bạn thực hiện nước đi táo bạo. Chỉ một sai lầm cũng phải trả giá.
+  choices:
+    - "Thành công" → S4g
+    - "Thất bại" → SF1
+
+Scene ID: S4r
+  text: Giữa đường phố, cách tiếp cận của bạn thẳng thắn và dứt khoát. Đà tâm lý đang nghiêng về phía bạn.
+  choices:
+    - "Thành công" → S4g
+
+Scene ID: S4h
+  text: Bạn ép cuộc gặp trong vùng nguy hiểm. Canh bạc này có thể mang về thắng lợi hoặc đòn trừng phạt.
+  choices:
+    - "Thành công" → S4g
+    - "Thất bại" → SF1
+
+Scene ID: SF1
+  text: Bạn bị tát và mất HP, nhưng câu chuyện vẫn tiếp diễn. Bạn gượng dậy và tiến về phía trước.
+  choices:
+    - "Tiếp tục" → S5
+
+Scene ID: S4g
+  text: Bạn thành công và đời sống cá nhân bắt đầu thay đổi. Một tuyến drama ẩn có thể kích hoạt trước khi quay lại tuyến chính.
+  choices:
+    - "[Hệ thống] nếu has_wife=true, vào drama overlay" → D0
+    - "[Hệ thống] ngược lại tiếp tục tuyến chính" → S5
+
+Scene ID: S5
+  text: Bạn đụng phải bọn trộm mèo và hiểm nguy bùng nổ tức thì. Đây là một chốt sinh tồn quan trọng.
+  choices:
+    - "Vào màn trốn trộm mèo" → S5a
+
+Scene ID: S5a
+  text: Bạn cố thoát khỏi hỗn loạn và hoảng loạn. Kết quả sẽ quyết định bạn còn tự do hay không.
+  choices:
+    - "Thắng" → S6
+    - "Thua / bị bắt" → S7
+
+Scene ID: S6
+  text: Bạn có cơ hội hành động vì điều lớn hơn bản thân. Quyết định lúc này định nghĩa hướng đạo đức của bạn.
+  choices:
+    - "Cứu những mèo khác" → S6a
+    - "Tiếp tục sống cho bản thân" → S6b
+
+Scene ID: S6a
+  text: Bạn lao vào giải cứu và chấp nhận mạo hiểm tất cả vì đồng loại. Con đường này dẫn đến một ending anh hùng.
+  choices:
+    - "Tiếp tục" → EC_H
+
+Scene ID: S6b
+  text: Bạn sống sót và tiếp tục con đường hoang theo cách của riêng mình. Đường phố vẫn thuộc về bạn.
+  choices:
+    - "Tiếp tục" → EC
+
+Scene ID: S7
+  text: Bạn bị nhốt trong lồng và đối mặt số phận tàn nhẫn. Thoát ra là cơ hội duy nhất.
+  choices:
+    - "Cố thoát khỏi lồng" → S7a
+
+Scene ID: S7a
+  text: Bạn vùng vẫy để phá lồng trong áp lực nghẹt thở. Một kết quả cứu bạn, kết quả còn lại chấm dứt tất cả.
+  choices:
+    - "Thắng" → S6b
+    - "Thua" → EX
+
+Scene ID: SD
+  text: Bạn leo lên quyền lực băng nhóm và kiểm soát khu phố. Tự do bị đánh đổi để lấy quyền thống trị.
+  choices:
+    - "Tiếp tục" → ED
+
+Scene ID: H0
+  text: Bạn chọn tuyến ở nhà, nơi an toàn cao nhưng tự do thu hẹp. Sự êm ấm luôn đi kèm cái giá riêng.
+  choices:
+    - "Tiếp tục" → H1
+
+Scene ID: H1
+  text: Bạn bước vào nhà và cuối cùng cũng được ăn no. Cảm giác an toàn bắt đầu định hình lại bản năng.
+  choices:
+    - "Tiếp tục" → H2
+
+Scene ID: H2
+  text: Bạn khám phá ngôi nhà và phát hiện những thói quen kỳ lạ dễ nghiện. Cuộc sống trong nhà vừa ấm áp vừa gò bó.
+  choices:
+    - "Thử minigame cỏ mèo" → H2m
+
+Scene ID: H2m
+  text: Bạn trôi vào cơn phê cỏ mèo hỗn loạn và mất kiểm soát. Phản ứng của chủ phụ thuộc vào kết quả của bạn.
+  choices:
+    - "Thắng" → H2w
+    - "Thua" → H2l
+
+Scene ID: H2w
+  text: Bạn hồi lại trong trạng thái vui vẻ và chủ rất hài lòng. Sự gắn kết giữa hai bên mạnh lên.
+  choices:
+    - "Tiếp tục" → H3
+
+Scene ID: H2l
+  text: Bạn gục xuống tệ hại và khiến chủ lo lắng. Sự ổn định trở nên mong manh.
+  choices:
+    - "Tiếp tục" → H3
+
+Scene ID: H3
+  text: Ngày tắm xuất hiện như một cơn khủng hoảng. Bạn phải chống cự hoặc chịu đựng cơn hỗn loạn này.
+  choices:
+    - "Vào trận chiến xà phòng" → H3m
+
+Scene ID: H3m
+  text: Trận xà phòng thử thách khả năng kiểm soát và sức bền của bạn. Kết quả sẽ đổi hướng toàn bộ đà tâm lý.
+  choices:
+    - "Thắng" → H3w
+    - "Thua" → H3l
+
+Scene ID: H3w
+  text: Bạn thoát ra tương đối khô ráo và khiến chủ nể phục. Sự tự tin trong nhà tăng cao.
+  choices:
+    - "Tiếp tục" → H4
+
+Scene ID: H3l
+  text: Bạn kết thúc trong trạng thái ướt sũng và bực bội, căng thẳng dâng lên. Ngày kế tiếp trở thành điểm rẽ lớn.
+  choices:
+    - "Tiếp tục" → H4
+
+Scene ID: H4
+  text: Ở phòng khám, số phận tách thành hai hướng rõ rệt. Đây là nhánh chính của tuyến ở nhà.
+  choices:
+    - "Cố đào thoát khỏi phẫu thuật" → H4m
+
+Scene ID: H4m
+  text: Bạn liều mình né thủ thuật trong một cuộc chạy trốn tuyệt vọng. Thắng nghĩa là tự do, thua nghĩa là bị giam hãm.
+  choices:
+    - "Thắng: thoát" → H5A
+    - "Thua: bị thiến" → H5B
+
+Scene ID: H5A
+  text: Bạn trở lại thế giới bên ngoài với tự do phải trả giá bằng đau đớn. Bản năng sinh tồn thức dậy lần nữa.
+  choices:
+    - "Săn chuột" → H5Am
+
+Scene ID: H5Am
+  text: Bạn săn mồi ngoài trời và chạm lại nhịp sống hoang dã. Tuyến này khép lại bằng một ending tự do.
+  choices:
+    - "Tiếp tục" → EC
+
+Scene ID: H5B
+  text: Bạn ở lại trong nhà, đã thay đổi và bị kiểm soát nhiều hơn. Xung đột thật sự giờ nằm trong nội tâm.
+  choices:
+    - "Vào thử thách nằm im" → H5Bm
+
+Scene ID: H5Bm
+  text: Bạn đứng yên và cân nhắc bước kế tiếp dưới áp lực cuộc sống gia đình. Một hành động nhỏ sẽ định nghĩa Karma của bạn.
+  choices:
+    - "Tiếp tục" → H6
+
+Scene ID: H6
+  text: Bạn quyết định nằm im hay bật ra khỏi khuôn khổ. Lựa chọn này trực tiếp làm lệch cán cân đạo đức.
+  choices:
+    - "Nằm im" → KPLUS
+    - "Nhảy ra" → KMINUS
+
+Scene ID: KPLUS
+  text: Bạn chấp nhận sự kiềm chế và tăng Karma. Sự suy ngẫm trong bạn trở nên sâu hơn.
+  choices:
+    - "Tiếp tục" → H7
+
+Scene ID: KMINUS
+  text: Bạn từ chối kiềm chế và mất Karma. Mâu thuẫn trong bạn trở nên cứng rắn hơn.
+  choices:
+    - "Tiếp tục" → H7
+
+Scene ID: H7
+  text: Lập trường nội tâm cuối cùng quyết định ending tuyến ở nhà. Chấp nhận và phản kháng dẫn đến hai số phận khác nhau.
+  choices:
+    - "Chấp nhận" → EA
+    - "Không chấp nhận" → EB
+
+Scene ID: D0
+  text: Một pha drama tình ái phủ lên tuyến chính của bạn. Hỗn loạn cá nhân bắt đầu đe dọa các quyết định sinh tồn.
+  choices:
+    - "Tiếp tục" → D1
+
+Scene ID: D1
+  text: Bạn đối mặt lựa chọn tình cảm với hậu quả nặng nề. Mỗi bước đi đều làm rủi ro tăng lên.
+  choices:
+    - "Ngoại tình" → D2
+    - "Theo dõi vợ" → D3
+
+Scene ID: D2
+  text: Bạn lén phản bội và hy vọng không bị phát hiện. Căng thẳng tăng vọt ngay lập tức.
+  choices:
+    - "Thành công" → D2a
+    - "Bị bắt" → D2b
+
+Scene ID: D2a
+  text: Tạm thời bạn thoát được, nhưng ham muốn và rủi ro cùng lúc tăng cao. (Flow hiện chưa định nghĩa nút tiếp theo.)
+  choices:
+    - "Chưa có nhánh tiếp theo trong flow gốc" → D2a
+
+Scene ID: D2b
+  text: Bạn bị lôi vào một cuộc đánh ghen bạo lực. Thắng hay thua đều sẽ thay đổi tất cả.
+  choices:
+    - "Thua" → EL
+    - "Thắng" → D4
+
+Scene ID: D3
+  text: Bạn theo dõi vợ như một thám tử và khui ra sự thật giấu kín. Nghi ngờ chuyển thành xác nhận.
+  choices:
+    - "Tiếp tục" → D4
+
+Scene ID: D4
+  text: Bạn phát hiện tình địch và buộc phải chọn cách xử lý. Cảm xúc và mưu lược va chạm trực diện.
+  choices:
+    - "Tiếp tục" → D5
+
+Scene ID: D5
+  text: Bạn chọn bạo lực trực diện hoặc phá hoại bằng mưu kế. Cả hai con đường đều nguy hiểm.
+  choices:
+    - "Đánh trực diện" → D6
+    - "Đầu độc qua nấu ăn" → D7
+
+Scene ID: D6
+  text: Bạn đối đầu tình địch bằng một trận móng vuốt sống còn. Sức mạnh quyết định số phận mối quan hệ.
+  choices:
+    - "Thành công" → D8
+    - "Thất bại" → EL
+
+Scene ID: D7
+  text: Bạn thực hiện kế hoạch đầu độc đầy tính toán với rủi ro cao. Sai công thức lặp lại sẽ khiến mọi thứ sụp đổ.
+  choices:
+    - "Thành công" → D8
+    - "Sai công thức 3 lần" → EL
+
+Scene ID: D8
+  text: Bạn giành lại quyền kiểm soát đời sống tình cảm rồi quay lại hành trình chính. Câu chuyện nhập trở lại tuyến đường phố.
+  choices:
+    - "Quay lại tuyến chính" → S6b
+
+Scene ID: EC_H [ENDING]
+  text: Ending C-Hero: Bạn chọn ý nghĩa thay vì an toàn và trở thành kẻ giải cứu trên con đường hoang.
+
+Scene ID: EC [ENDING]
+  text: Ending C: Bạn tiếp tục sống ngoài đường, tự do nhưng luôn phơi mình trước hiểm nguy.
+
+Scene ID: ED [ENDING]
+  text: Ending D: Bạn trở thành đại ca khu phố, vừa đáng sợ vừa được nể phục trong thế giới băng nhóm.
+
+Scene ID: EX [ENDING]
+  text: Ending X: Bạn không thể thoát khỏi cảnh giam cầm và bị đẩy tới một kết cục chí mạng.
+
+Scene ID: EA [ENDING]
+  text: Ending A: Bạn chấp nhận chiếc lồng êm ái và ổn định trong cuộc sống yên tĩnh nhưng bị kiểm soát.
+
+Scene ID: EB [ENDING]
+  text: Ending B: Bạn từ chối chấp nhận và mãi mắc kẹt trong xung đột bên trong chiếc lồng vàng.
+
+Scene ID: EL [ENDING]
+  text: Ending Love: Tuyến drama sụp đổ và bạn mất cả mối quan hệ lẫn sức khỏe.
+
+Scene ID: EAQ [ENDING NOTE]
+  text: Chất lượng Ending A phụ thuộc Karma: Karma cao thì ấm áp, Karma thấp thì cô độc.
+
+Scene ID: EBQ [ENDING NOTE]
+  text: Chất lượng Ending B phụ thuộc Karma: Karma cao thì hé mở, Karma thấp thì khép kín.
+
+Scene ID: MSG [ENDING NOTE]
+  text: Thông điệp cuối: an toàn và tự do hiếm khi đi cùng nhau, và cô độc quá lâu có thể làm mất chính mình.</pre>
+    </div>
+  </main>
+</body>
+</html>
