@@ -1,4 +1,3 @@
-.gitkeep
 map/city.png
 player/orange/ATTACK 1.png
 player/orange/HURT.png

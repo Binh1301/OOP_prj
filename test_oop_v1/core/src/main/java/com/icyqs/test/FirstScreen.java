@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -64,11 +65,11 @@ public class FirstScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, VIEW_W, VIEW_H);
 
-        bg = new Texture("/Users/mac/Desktop/test_oop/assets/map/city.png");
+        bg = new Texture(Gdx.files.internal("map/city.png"));
         mapW = bg.getWidth();
         mapH = bg.getHeight();
-        idleSheet = new Texture("/Users/mac/Desktop/test_oop/assets/player/orange/IDLE.png");
-        runSheet = new Texture("/Users/mac/Desktop/test_oop/assets/player/orange/RUN.png");
+        idleSheet = new Texture(Gdx.files.internal("player/orange/IDLE.png"));
+        runSheet = new Texture(Gdx.files.internal("player/orange/RUN.png"));
 
         int[] idleX = { 26, 106, 186, 266, 346, 426, 506, 586 };
         TextureRegion[] idleFrames = new TextureRegion[idleX.length];
@@ -86,24 +87,54 @@ public class FirstScreen implements Screen {
         idleAnimation.setPlayMode(Animation.PlayMode.LOOP);
         runAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
-        font = new BitmapFont();
-        font.getData().setScale(0.9f);
-        font.setColor(Color.WHITE);
+        // Load TrueType font with Vietnamese Unicode support
+        try {
+            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/arial.ttf"));
+            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+            parameter.size = 20;
+            parameter.color = Color.WHITE;
+            parameter.borderWidth = 1f;
+            parameter.borderColor = Color.BLACK;
+            font = generator.generateFont(parameter);
+            generator.dispose();
+        } catch (Exception e) {
+            // Fallback to default if font not found
+            font = new BitmapFont();
+            font.getData().setScale(1.2f);
+            font.setColor(Color.WHITE);
+        }
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        panelTex = new Texture("/Users/mac/Desktop/test_oop/assets/ui/panel/panel_blue.png");
-        btnTex = new Texture("/Users/mac/Desktop/test_oop/assets/ui/button/button_blue.png");
-        btnPressedTex = new Texture("/Users/mac/Desktop/test_oop/assets/ui/button/button_blue_pressed.png");
-        iconHeart = new Texture("/Users/mac/Desktop/test_oop/assets/ui/icon/heart.png");
-        iconCoin = new Texture("/Users/mac/Desktop/test_oop/assets/ui/icon/coin.png");
-        iconPause = new Texture("/Users/mac/Desktop/test_oop/assets/ui/icon/pause.png");
+        panelTex = new Texture(Gdx.files.internal("ui/panel/panel_blue.png"));
+        btnTex = new Texture(Gdx.files.internal("ui/button/button_blue.png"));
+        btnPressedTex = new Texture(Gdx.files.internal("ui/button/button_blue_pressed.png"));
+        iconHeart = new Texture(Gdx.files.internal("ui/icon/heart.png"));
+        iconCoin = new Texture(Gdx.files.internal("ui/icon/coin.png"));
+        iconPause = new Texture(Gdx.files.internal("ui/icon/pause.png"));
 
         buildChatUI();
 
-        addMessage("Cuns beos: Meow meow I'm ready!");
-        addMessage("Use arrow buttons in ur mtfk keyboard to move!");
+        addMessage("╔════════════════════════════════════════╗");
+        addMessage("║    BO GIAO DUC VA DAO TAO             ║");
+        addMessage("║   TRUONG DH BACH KHOA HA NOI          ║");
+        addMessage("║                                        ║");
+        addMessage("║        HOC PHAN: LAP TRINH HUONG       ║");
+        addMessage("║              DOI TUONG                ║");
+        addMessage("║                                        ║");
+        addMessage("║        MEOW DU AN: CAT LIFE MEOW       ║");
+        addMessage("║          NHOM 5                        ║");
+        addMessage("╠════════════════════════════════════════╣");
+        addMessage("║ 202416867  │ Nguyen Binh              ║");
+        addMessage("║ 202416855  │ Nguyen Quang Anh         ║");
+        addMessage("║ 202417058  │ Bui Ngoc Trung           ║");
+        addMessage("║ 202416842  │ Vu Lan Anh               ║");
+        addMessage("║ 202417010  │ Hoang Binh Phuong        ║");
+        addMessage("╚════════════════════════════════════════╝");
+        addMessage("");
+        addMessage("Meo: Xin chao! Toi la Meo trong tro choi nay!");
+        addMessage("Huong dan: Dung phim mui ten de di chuyen");
     }
 
     private void buildChatUI() {
@@ -142,10 +173,10 @@ public class FirstScreen implements Screen {
         container.add(scrollPane).expand().fill().padTop(4).row();
         Table btnRow = new Table();
 
-        btnRow.add(makeTextButton("Uhmmm Hiiii!", () -> addMessage("Cuns beos: Hiii!"))).pad(3);
-        btnRow.add(makeTextButton("Where am I???",
-                () -> addMessage("Cuns beos: I'm at ~~~ (" + (int) x + ", " + (int) y + ")"))).pad(3);
-        btnRow.add(makeTextButton("Continue...", () -> addMessage("Cuns beos: Let's gooo!"))).pad(3);
+        btnRow.add(makeTextButton("Chào bạn!", () -> addMessage("Mèo: Chào! Vui lòng gặp bạn!"))).pad(3);
+        btnRow.add(makeTextButton("Tôi đang ở đâu?",
+                () -> addMessage("Mèo: Tôi đang ở vị trí (" + (int) x + ", " + (int) y + ")"))).pad(3);
+        btnRow.add(makeTextButton("Tiếp tục...", () -> addMessage("Mèo: Cùng nhau phiêu lưu nào!"))).pad(3);
 
         container.add(btnRow).fillX().padTop(4);
 
