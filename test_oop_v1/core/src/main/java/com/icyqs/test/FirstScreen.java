@@ -116,22 +116,22 @@ public class FirstScreen implements Screen {
 
         buildChatUI();
 
-        addMessage("╔════════════════════════════════════════╗");
-        addMessage("║    BO GIAO DUC VA DAO TAO             ║");
-        addMessage("║   TRUONG DH BACH KHOA HA NOI          ║");
-        addMessage("║                                        ║");
-        addMessage("║        HOC PHAN: LAP TRINH HUONG       ║");
-        addMessage("║              DOI TUONG                ║");
-        addMessage("║                                        ║");
-        addMessage("║        MEOW DU AN: CAT LIFE MEOW       ║");
-        addMessage("║          NHOM 5                        ║");
-        addMessage("╠════════════════════════════════════════╣");
-        addMessage("║ 202416867  │ Nguyen Binh              ║");
-        addMessage("║ 202416855  │ Nguyen Quang Anh         ║");
-        addMessage("║ 202417058  │ Bui Ngoc Trung           ║");
-        addMessage("║ 202416842  │ Vu Lan Anh               ║");
-        addMessage("║ 202417010  │ Hoang Binh Phuong        ║");
-        addMessage("╚════════════════════════════════════════╝");
+        addMessage("+--------------------------------------+");
+        addMessage("|    BO GIAO DUC VA DAO TAO            |");
+        addMessage("|   TRUONG DH BACH KHOA HA NOI         |");
+        addMessage("|                                      |");
+        addMessage("|        HOC PHAN: LAP TRINH HUONG     |");
+        addMessage("|              DOI TUONG               |");
+        addMessage("|                                      |");
+        addMessage("|        MEOW DU AN: CAT LIFE MEOW     |");
+        addMessage("|          NHOM 5                      |");
+        addMessage("+--------------------------------------+");
+        addMessage("| 202416867  | Nguyen Binh             |");
+        addMessage("| 202416855  | Nguyen Quang Anh        |");
+        addMessage("| 202417058  | Bui Ngoc Trung          |");
+        addMessage("| 202416842  | Vu Lan Anh              |");
+        addMessage("| 202417010  | Hoang Binh Phuong       |");
+        addMessage("+--------------------------------------+");
         addMessage("");
         addMessage("Meo: Xin chao! Toi la Meo trong tro choi nay!");
         addMessage("Huong dan: Dung phim mui ten de di chuyen");
@@ -155,11 +155,11 @@ public class FirstScreen implements Screen {
 
         Table topBar = new Table();
 
-        topBar.add(makeIconButton(iconHeart, () -> addMessage("❤ HP: 100/100"))).size(32, 32).pad(2);
-        topBar.add(makeIconButton(iconCoin, () -> addMessage("💰 Coins: 999"))).size(32, 32).pad(2);
+        topBar.add(makeIconButton(iconHeart, () -> addMessage("HP: 100/100"))).size(32, 32).pad(2);
+        topBar.add(makeIconButton(iconCoin, () -> addMessage("Coins: 999"))).size(32, 32).pad(2);
         topBar.add().expandX();
 
-        topBar.add(makeIconButton(iconPause, () -> addMessage("⏸ Game paused!"))).size(32, 32).pad(2);
+        topBar.add(makeIconButton(iconPause, () -> addMessage("Game paused!"))).size(32, 32).pad(2);
 
         container.add(topBar).fillX().expandX().row();
         chatLog = new Table();
@@ -173,10 +173,10 @@ public class FirstScreen implements Screen {
         container.add(scrollPane).expand().fill().padTop(4).row();
         Table btnRow = new Table();
 
-        btnRow.add(makeTextButton("Chào bạn!", () -> addMessage("Mèo: Chào! Vui lòng gặp bạn!"))).pad(3);
-        btnRow.add(makeTextButton("Tôi đang ở đâu?",
-                () -> addMessage("Mèo: Tôi đang ở vị trí (" + (int) x + ", " + (int) y + ")"))).pad(3);
-        btnRow.add(makeTextButton("Tiếp tục...", () -> addMessage("Mèo: Cùng nhau phiêu lưu nào!"))).pad(3);
+        btnRow.add(makeTextButton("Chao ban!", () -> addMessage("Meo: Chao! Vui long gap ban!"))).pad(3);
+        btnRow.add(makeTextButton("Toi dang o dau?",
+                () -> addMessage("Meo: Toi dang o vi tri (" + (int) x + ", " + (int) y + ")"))).pad(3);
+        btnRow.add(makeTextButton("Tiep tuc...", () -> addMessage("Meo: Cung nhau phieu luu nao!"))).pad(3);
 
         container.add(btnRow).fillX().padTop(4);
 
